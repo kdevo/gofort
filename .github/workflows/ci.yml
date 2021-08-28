@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17'
+      - name: Install fortunes
+        run: sudo apt -y install fortune-mod fortunes fortunes-bofh-excuses fortunes-debian-hints
+      - name: Test
+        run: make test
+      - name: Build
+        run: make release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Binaries
+          path: bin/*
+          if-no-files-found: error
+  

@@ -18,7 +18,7 @@ LDFLAGS = "-s -w \
 	-X 'main.DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")'"
 
 # Fortune
-FORTUNE_SRC ?= /usr/share/fortune
+FORTUNE_SRC ?= $(if $(wildcard /usr/share/fortune/.),/usr/share/fortune,/usr/share/games/fortunes)
 FORTUNE_DST = ./pkg/fortune/texts
 FORTUNE_TXT := $(patsubst %.dat,%,$(wildcard ${FORTUNE_SRC}/*.dat))
 

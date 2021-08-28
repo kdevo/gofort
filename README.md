@@ -1,4 +1,5 @@
 # gofort
+[![Build](https://github.com/kdevo/gofort/actions/workflows/ci.yml/badge.svg)](https://github.com/kdevo/gofort/actions/workflows/ci.yml)
 
 Yet another [`fortune`](https://wiki.archlinux.org/title/Fortune) clone, written in Go. 
 

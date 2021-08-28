@@ -20,6 +20,8 @@ jobs:
         run: make test
       - name: Build
         run: make release
+      - name: Benchmark
+        run: make bench
       - uses: actions/upload-artifact@v2
         with:
           name: Binaries

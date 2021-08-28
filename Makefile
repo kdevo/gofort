@@ -22,8 +22,8 @@ FORTUNE_SRC ?= $(if $(wildcard /usr/share/fortune/.),/usr/share/fortune,/usr/sha
 FORTUNE_DST = ./pkg/fortune/texts
 FORTUNE_TXT := $(patsubst %.dat,%,$(wildcard ${FORTUNE_SRC}/*.dat))
 
-.PHONY: fortune test build release clean
-all: fortune test build release
+.PHONY: fortune test bench build release clean
+all: fortune test bench build release
 
 fortune: ${FORTUNE_TXT}
 	@mkdir -p ${FORTUNE_DST}
@@ -31,6 +31,9 @@ fortune: ${FORTUNE_TXT}
 
 test: fortune
 	${GO} test -v -race ./... 
+
+bench: fortune
+	${GO} test -benchmem -bench=. ./...
 
 build: fortune
 	${GO} build -o ${BUILD_DIR}/${EXECUTABLE} \

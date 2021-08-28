@@ -49,7 +49,7 @@ release: fortune
 		) \
 	) 
 # Add exe to windows binaries for easier execution:
-	$(foreach winbin,$(filter-out $(wildcard ${BASENAME}*.exe),$(wildcard ${BASENAME}-windows*)), \
+	$(foreach winbin,$(filter-out $(wildcard ${BUILD_DIR}/${EXECUTABLE}*.exe),$(wildcard ${BUILD_DIR}/${EXECUTABLE}*-windows*)), \
 		$(shell mv ${winbin} ${winbin}.exe) \
 	)
 

@@ -4,8 +4,8 @@ SHELL = /bin/sh
 # Build
 BUILD_DIR ?= ./bin
 EXECUTABLE := gofort
-VERSION := v0.1.0
-# VERSION := $(shell git describe --tags --abbrev=0)
+VERSION ?= $(shell git describe --tags --abbrev=0)
+VERSION := $(or ${VERSION},v0.1.0)
 GOOSS = linux darwin windows
 GOARCHS = 386 amd64 arm arm64
 COMMIT := $(shell git rev-parse --short HEAD)
@@ -34,7 +34,7 @@ test: fortune
 
 build: fortune
 	${GO} build -o ${BUILD_DIR}/${EXECUTABLE} \
-		-ldflags=$(subst {ARCH},$(go env GOARCH),$(subst {OS},$(go env GOOS),${LDFLAGS}) ./cmd/...) 
+		-ldflags=$(subst {ARCH},$(shell go env GOARCH),$(subst {OS},$(shell go env GOOS),${LDFLAGS}) ./cmd/gofort) 
 
 release: fortune
 # Crossing architectures and OSs for cross-compiling:
@@ -42,7 +42,7 @@ release: fortune
 		$(foreach os,${GOOSS}, \
 			$(shell GOARCH=${arch} GOOS=${os} \
 				${GO} build -o ${BUILD_DIR}/${EXECUTABLE}-${VERSION}-${os}_${arch} \
-					-ldflags=$(subst {ARCH},${arch},$(subst {OS},${os},${LDFLAGS}) ./cmd/...)) \
+					-ldflags=$(subst {ARCH},${arch},$(subst {OS},${os},${LDFLAGS}) ./cmd/gofort)) \
 		) \
 	) 
 # Add exe to windows binaries for easier execution:

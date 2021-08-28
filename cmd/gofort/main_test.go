@@ -56,7 +56,7 @@ func BenchmarkCompareNetBSDFortune(b *testing.B) {
 }
 
 func gofortPath() (string, error) {
-	globPaths := []string{fmt.Sprintf("../bin/%s-*-%s_%s", NAME, runtime.GOOS, runtime.GOARCH), fmt.Sprintf("../bin/%s*", NAME)}
+	globPaths := []string{fmt.Sprintf("../../bin/%s-*-%s_%s", NAME, runtime.GOOS, runtime.GOARCH), fmt.Sprintf("../../bin/%s*", NAME)}
 	for _, globPath := range globPaths {
 		matches, err := filepath.Glob(globPath)
 		if len(matches) >= 1 && err == nil {

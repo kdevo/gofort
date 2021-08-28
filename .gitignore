@@ -1,0 +1,7 @@
+bin/
+
+# Don't include the distro-specific fortune texts:
+pkg/fortune/texts/*
+# Allow "extensions" to be included:
+!pkg/fortune/texts/python
+!pkg/fortune/texts/go

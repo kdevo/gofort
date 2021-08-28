@@ -1,0 +1,11 @@
+FROM golang:1.17-alpine
+
+RUN apk add --no-cache make
+RUN apk add --no-cache fortune
+
+WORKDIR /go/src/gofort/
+
+COPY . .
+RUN make build
+
+CMD ["go", "test", "-bench=.", "./...", "-benchmem"]
